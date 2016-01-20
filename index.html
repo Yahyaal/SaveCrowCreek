@@ -24,6 +24,9 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.3/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.3/mapbox-gl.css' rel='stylesheet' />
+
 </head>
 
 <body id="page-top" class="index">
@@ -88,11 +91,17 @@
     </section>
 
     <!-- Map Section -->
-    <section id="map">
+    <section>
         <h2 class="section-heading text-center">Map</h2>
-        <div>
-            <iframe width='100%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/yahyaal.onpo2c88/attribution,zoompan,geocoder,share.html?access_token=pk.eyJ1IjoieWFoeWFhbCIsImEiOiJjaWoyNXlmYXEwMGZ5dHJtNGFlYWxuZ2I5In0.zMIaGbWHm1rtPpzlEV1XoA'></iframe>
+        <div id='menu'>
+            <input id='streets' type='button' class="btn btn-success" name='rtoggle' value='streets'>
+            
+            <input id='emerald' type='button' class="btn btn-success" name='rtoggle' value='emerald'>
+            <input id='bright' type='button' class="btn btn-success" name='rtoggle' value='bright'>
+            <input id='satellite-hybrid' type='button' class="btn btn-success" name='rtoggle' value='satellite'>
+            
         </div>
+        <div id="map"></div>
     </section>
 
     
@@ -180,6 +189,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
+
+    <!-- Mapbox JS -->
+    <script type="text/javascript" src="js/map.js"></script>
 
 </body>
 

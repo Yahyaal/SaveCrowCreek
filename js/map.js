@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8' />
-    <title></title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.3/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.3/mapbox-gl.css' rel='stylesheet' />
-    <style>
-        body { margin:0; padding:0; }
-        #map { width:100%; height:400px}
-    </style>
-</head>
-<body>
 
-<div>
-    <h2>Map</h2>
-</div>
-
-<div id='map'></div>
-<div id='menu'>
-    <input id='streets' type='radio' name='rtoggle' value='streets' checked='checked'>
-    <label for='streets'>streets</label>
-    <input id='emerald' type='radio' name='rtoggle' value='emerald'>
-    <label for='emerald'>emerald</label>
-    <input id='bright' type='radio' name='rtoggle' value='bright'>
-    <label for='bright'>bright</label>
-    <input id='satellite-hybrid' type='radio' name='rtoggle' value='satellite-hybrid'>
-    <label for='satellite-hybrid'>satellite</label>
-</div>
-<script>
 mapboxgl.accessToken = 'pk.eyJ1IjoieWFoeWFhbCIsImEiOiJjaWoyNXlmYXEwMGZ5dHJtNGFlYWxuZ2I5In0.zMIaGbWHm1rtPpzlEV1XoA';
 var map = new mapboxgl.Map({
     container: 'map', // container id
@@ -86,15 +56,3 @@ map.on('style.load', function () {
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.Navigation());
-</script>
-
-<!-- Map Section -->
-<section id="map">
-    <h2 class="section-heading text-center">Map</h2>
-    <div>
-        <iframe width='100%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/yahyaal.onpo2c88/attribution,zoompan,geocoder,share.html?access_token=pk.eyJ1IjoieWFoeWFhbCIsImEiOiJjaWoyNXlmYXEwMGZ5dHJtNGFlYWxuZ2I5In0.zMIaGbWHm1rtPpzlEV1XoA'></iframe>
-    </div>
-</section>
-
-</body>
-</html>
