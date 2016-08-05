@@ -10,26 +10,86 @@
 
 
 	<script>
-		var app = angular.module('testFormApp', []);
-		app.controller('testCtrl', function($scope, $http) {
+		var app = angular.module('testFormApp', ['ui.bootstrap']);
+		app.controller('testCtrl', function($scope, $http,$uibModal) {
 			$scope.today = new Date();
+			console.log('date= ', $scope.today);
 			function getPosts() {
 				$http.get('/posts').then(function(response) {
 					$scope.posts = response.data;
+					console.log('posts= ', $scope.posts);
 				});
 			}
 			getPosts();
-			$scope.addPost = function() {
-				$http.post('/posts', $scope.newPost).then(function() {
-					getPosts();
+			/*$scope.loadPost = function(post) {
+			    var modalInst = $uibModal.open({
+			        templateUrl: 'confirm.html',
+			        controller: 'LoadCtrl',
+			        resolve: {
+			            postItem: function() {return post;} // Inject 'post' variable as 'postItem'
+			        }
+			    });
+			    modalInst.result.then(function() {
+			        getPosts();
+			    });
+			};*/
+			$scope.addPost = function(newPost) {
+				var modalInstance = $uibModal.open({			// TODO: Comment without variable
+					templateUrl: 'confirm.html',
+					controller: 'PostCtrl',
+					resolve: {
+						postItem: function() {return newPost;}		// Inject our 'hit' variable as 'hitItem'
+					}
 				});
-				console.log($scope.newPost);
-				$scope.newPost = {};
+				modalInstance.result.then(function() {			// This executes after $uibModalInstance.close() is called from HitCtrl
+					getHits();
+					$http.post('/posts', $scope.newPost).then(function() {
+						getPosts();
+					});
+					console.log('newPost= ', $scope.newPost);
+					$scope.newPost = {};
+				});
+				
 			};
-			$scope.loadPost = function(post) {
+			/*$scope.loadPost = function(post) {
 				$scope.newPost = angular.copy(post);
-			};
+			};*/
 		});
+
+		/*app.controller('LoadCtrl', function($scope,$http,$uibModal,$uibModalInstance, postItem) {
+		    console.log('LoadCtrl postItem= ', postItem);
+		    $scope.post = postItem;
+
+		    $scope.save = function() {
+		        $http.post('/posts', $scope.post).then(function(response) {
+		            console.log('post/posts: ', response.data);
+		            $uibModalInstance.close()
+		        });
+		    };
+		    
+		    $scope.cancel = function() {
+		        $uibModalInstance.dismiss();
+		    };
+
+		    $scope.delete = function() {
+		        var deleteInst = $uibModal.open( {
+		            templateUrl: 'confirm.html',
+		            controller: function($scope,$uibModalInstance) {
+		                $scope.yes = function() {
+		                    $uibModalInstance.close();
+		                };
+		                $scope.no = function() {
+		                    $uibModalInstance.dismiss();
+		                };
+		            }
+		        });
+		        deleteInst.result.then(function() {
+		            $http.delete('/posts/'+$scope.post._id).then(function() {
+		                $uibModalInstance.close();
+		            });
+		        });
+		    };
+		});*/
 	</script>
 </head>
 
@@ -154,7 +214,7 @@
 	            </div>
 	           
 		    	<div class="form-group" align="middle">
-					<input class="btn btn-success btn-lg" type="submit" value="Submit" ng-click='addPost(post)'>
+					<input class="btn btn-success btn-lg" type="submit" value="Submit" ng-click='addPost()'>
 		    	</div>
 			</div>
 			
