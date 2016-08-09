@@ -3,13 +3,24 @@ var bodyParser = require('body-parser');	// We use bodyParser to parse POST requ
 var mongoose = require('mongoose');			// Import mongoose
 
 mongoose.Promise = Promise;							// Set the default Promise handler to the global ES6 Promise.
-mongoose.connect('mongodb://localhost/savecrowcreek');	// Connect to the local MongoDB instance and use 'okcoders' as the database.
+
+var uristring = 
+  process.env.MONGODB_URI || 'mongodb://localhost/savecrowcreek';
+mongoose.connect(uristring, function (err, res) {
+	if (err) {
+		console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+	} else {
+		console.log ('Succeeded connected to: ' + uristring);
+	}
+});
+
 
 var app = express();								// Create our express application
 app.use(express.static('./public'));				// Serve our static content out of public/
 app.use(bodyParser());								// Use the bodyParser to parse our POST requests
-app.listen(8080, function() {						// Start our server
-	console.log('Listening on http://localhost:8080');
+var port = process.env.PORT || 8080;
+app.listen(port, function() {
+	console.log('Listening at http://localhost:'+port);
 });
 
 var Test = require('./models/test');				// Import our Post model (defined in models/post.js)
